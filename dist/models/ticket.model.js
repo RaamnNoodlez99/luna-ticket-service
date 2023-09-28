@@ -7,6 +7,10 @@ exports.ticketSchema = exports.TicketModel = void 0;
 var _mongoose = require("mongoose");
 // const ticketDb = dbConnection(); <- this breaks it
 
+// export interface WorklogResponse {
+//     summary: string[];
+//     worklogs: worklog[];
+// }
 var attachmentSchema = new _mongoose.Schema({
   name: {
     type: String
@@ -41,6 +45,64 @@ var commentSchema = new _mongoose.Schema({
   }
 }, {
   _id: false
+});
+var historySchema = new _mongoose.Schema({
+  personWhoChangedAssigned: {
+    type: String,
+    required: true
+  },
+  personWhoChangedPhoto: {
+    type: String,
+    required: true
+  },
+  prevAssignedName: {
+    type: String,
+    required: true
+  },
+  prevAssignedPhoto: {
+    type: String,
+    required: true
+  },
+  newAssignedName: {
+    type: String,
+    required: true
+  },
+  newAssignedPhoto: {
+    type: String,
+    required: true
+  }
+}, {
+  _id: false
+});
+var worklogSchema = new _mongoose.Schema({
+  author: {
+    type: String,
+    required: true
+  },
+  authorPhoto: {
+    type: String,
+    required: true
+  },
+  timeSpent: {
+    type: String,
+    required: true
+  },
+  timeRemaining: {
+    type: String,
+    required: true
+  },
+  dateStarted: {
+    type: Date,
+    required: true
+  },
+  timeStarted: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  }
 });
 var ticketSchema = new _mongoose.Schema({
   id: {
@@ -82,6 +144,10 @@ var ticketSchema = new _mongoose.Schema({
   comments: {
     type: [commentSchema]
   },
+  history: {
+    type: [historySchema]
+  },
+  workLogs: [worklogSchema],
   description: {
     type: String,
     required: true
